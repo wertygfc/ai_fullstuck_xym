@@ -1,0 +1,35 @@
+/* cover 的专属样式 有利于我们维护 */
+.cover {
+  position: relative;
+}
+.cover image {
+  height: 38.2vh;
+}
+.cover .content{
+  /* 定位之后脱离文档流 离开文档流之后就失去宽度，被内容撑开 */
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.3);
+  width: 100%;
+  color: white;
+  /* 文档流默认占一行 flex解决左右布局（一行两列）问题，因为内部block元素不会换行 ，是新布局的上下文 */
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: flex-end;/*底部对齐*//*flex-start 顶部对齐*/
+  padding:  16rpx 32rpx;
+}
+.cover .content .header{
+  flex: 1;
+  font-size: 36rpx;
+  font-weight: bold;
+  letter-spacing: 4rpx;
+}
+.cover .sub-header{
+  font-size: 26rpx;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.cover .meta {
+  font-size: 26rpx;
+  width: 30vw;
+}
