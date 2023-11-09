@@ -28,4 +28,4 @@ function getPostLikes(names){
 // console.log(getPostLikes(['b']));
 // console.log(getPostLikes(['b','c']));
 // console.log(getPostLikes(['b','c','d']));
-console.log(getPostLikes(['b','c','d','e']));
+// console.log(getPostLikes(['b','c','d','e']));

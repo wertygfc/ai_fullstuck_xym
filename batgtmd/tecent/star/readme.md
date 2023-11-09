@@ -54,4 +54,4 @@
         replace(正则，callback)
         /{name}/ g 全局匹配
         callback 返回值 替换的内容
-        callback 的参数 val 可以表达 当前匹配的字符串是什么？
+        callback 的参数 val 可以表达 当前匹配的字符串是什么

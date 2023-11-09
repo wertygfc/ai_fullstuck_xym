@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul li{
+            list-style:none;
+            width: 200px;
+            height: 100px;
+            background-color: cornflowerblue;
+            float: left;
+        }
+        .content{
+            /* clear: both; */
+            width: 100%;
+            height: 200px;background-color: chocolate;
+        }
+        ul{
+            /* overflow: auto; */
+            /* overflow: hidden; */
+            /* display: inline-block; */
+        }
+        /* ul{
+            height: 100px;
+        } */
+        /* .clear{
+            clear: left;both 全部清除 */
+        .clear::after{/* 伪元素*/
+            content: '';
+            clear:both;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul class="clear">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <!-- <div class="clear"></div> -->
+    </ul>
+    <div class="content"></div>
+</body>
+</html>
