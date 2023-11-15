@@ -1,5 +1,5 @@
 # AIGC 的学习方向的设计？
-
+[代码](https://colab.research.google.com/drive/1H6SgLwN7urIdRtaNHKipVAeRfy2LnhCT#scrollTo=RKOW34ByRUAt)
 - openai
     强大的 API 和 LLM 的能力，他们将是AI开发应用的基础
     prompt engineer 提示词
