@@ -24,3 +24,6 @@ new 的步骤
 如：
 let c = Object.create(null)
 绝大多数的对象身上都有隐式原型
+
+
+！[https://img2018.cnblogs.com/blog/939316/201809/939316-20180927095306645-1975780154.png]
