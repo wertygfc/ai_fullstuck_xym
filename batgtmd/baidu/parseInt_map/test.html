@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="info" action="">
+        <!-- html5提供的更丰富的表单类型，在这种类型里你只能输数字，其他类型不行 -->
+        <input type="email" name="email" required placeholder="请输入邮箱">
+        <input type="number" name="age" required placeholder="请输入年龄">
+        <button type="submit">提交</button>
+    </form>
+    <script>
+        const oForm = document.forms["info"]
+        oForm.addEventListener('submit', function(){
+            // 阻止默认行为
+            event.preventDefault(); // js接管表单提交
+            // const email = this.querySelector('[name=email]')     // 属性选择器
+            const email = this["email"].value 
+            const age = this["age"].value
+            console.log(email, age, typeof email, typeof age);
+        })
+    </script>
+</body>
+</html>
