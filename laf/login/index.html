@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="todos"></ul>
+    <script>
+        // const todosUL = document.getElementById('todos')
+        // fetch('http://localhost:3000/todos')
+        //     .then(data => data.json())
+        //     .then(data => {
+        //         console.log(data)
+        //         todosUL.innerHTML = data.map(todo => `
+        //         <li>
+        //             ${todo.txt}
+        //         </li> 
+        //     `).join('')
+        //     })
+        // fetch ajax -> 高级 es7 async await
+        // 表达：立即执行的内部有异步任务的函数，里面有await
+        (async function() {
+            const todosUL = document.getElementById('todos');
+            // 由es6提供的 Promise 类，有then控制流程的方法
+            // Promise 实例化的时候，接受的参数是个函数，在这里面封装耗时的异步任务
+            // Promise 默认会给函数传递的第一个参数是resolve函数
+            // 调用resolve  then就会执行
+            const p = new Promise((resolve) => {    // 里面要装一个异步任务函数，等解决完之后才进行then
+                setTimeout(() => {
+                    const xhr = new XMLHttpRequest()   
+                    xhr.open('GET','http://localhost:3000/todos',true);     // open()准备请求
+                    xhr.send();     // 发出请求
+                    xhr.onreadystatechange = (e) => {   // 监听后端响应
+                        if (e.target.status === 200 && e.target.readyState === 4) {
+                            console.log(e.target.responseText)
+                            const data = JSON.parse(e.target.responseText)
+                            console.log(data);
+                            resolve(data)   // 注释后就没了
+                        }
+                        // const data = JSON.parse(e.target.responseText)
+                        // todosUL.innerHTML = data.map(todo => `
+                        //     <li>
+                        //         ${todo.txt}
+                        //     </li>
+                        // `).join('')
+                        
+                    }
+
+                })
+            })     // 实例化的时候接受一个函数为参数
+            const data = await p
+            todosUL.innerHTML = data.map(todo => `
+                <li>
+                    ${todo.txt}
+                </li>
+            `).join('')
+
+            // p.then(() => {
+            //     console.log('hello');
+            // })
+            // const xhr = new XMLHttpRequest();   //实例化xhr对象，他可以主动发起HTTP请求
+            // xhr.open('GET','http://localhost:3000/todos',true);     // open()准备请求
+            // xhr.send();     // 发出请求
+            // xhr.onreadystatechange = (e) => {   // 监听后端响应
+            //     if (e.target.status === 200 && e.target.readyState === 4) {
+            //         console.log(e.target.responseText)
+            //     }
+            //     const data = JSON.parse(e.target.responseText)
+            //     todosUL.innerHTML = data.map(todo => `
+            //         <li>
+            //             ${todo.txt}
+            //         </li>
+            //     `).join('')
+            // }
+
+            // console.log(fetch('http://localhost:3000/todos'));
+            // const res = await fetch('http://localhost:3000/todos')
+            // const data = await res.json()
+            // console.log(data);
+            // console.log('hello');
+
+            // console.log('hello');
+            // js是异步，事件驱动语言
+            // fetch('http://localhost:3000/todos')
+            //     .then(res => res.json())
+            //     .then(res => {
+            //         console.log(data);
+            //     })
+            // console.log('hello');
+        }) ()
+    </script>
+</body>
+</html>
