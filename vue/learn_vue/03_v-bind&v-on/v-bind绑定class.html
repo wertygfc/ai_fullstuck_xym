@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <template id="my-app">
+        <!-- <h2 :class="className">hello</h2>
+        <h2 :class="{'active': isActive}">hello</h2> -->
+        <!-- 当isActive为true时，加上active -->
+        <!-- <button @click="toggle">切换</button> --> 
+
+        <!-- <h2 :calss="classObj">world</h2>
+        <h2 :calss="getClass()">world</h2> -->
+
+        <h2 :class="['active', 'name']">xym</h2>
+        <h2 :class="[isActive ? 'active' : 'name']">xym</h2>
+
+        <div :abc="isActive">aaa</div>
+
+
+    </template>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.3.4/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            template: '#my-app',
+            data(){
+                return {
+                    className: 'active',
+                    isActive: false,
+                    classObj: {
+                        'active': true,
+                        title: true
+                    },
+                    name: true
+                }
+            },
+            methods: {
+                toggle(){
+                    this.isActive = !this.isActive
+                },
+                getClass(){
+                    return {
+                    className: 'active',
+                    isActive: false,
+                    classObj: {
+                        'active': true,
+                        title: true
+                    },
+                    name: true
+                }
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

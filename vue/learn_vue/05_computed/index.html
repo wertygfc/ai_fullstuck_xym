@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    <template id="my-app">
+        <h2>当前温度为：{{ temp }}</h2>
+        <h3>建议穿：{{ cloth }}</h3>
+
+        <button @click="minus">-5</button>
+        <button @click="add">+5</button>
+    </template>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.3.4/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            template: '#my-app',
+            data(){
+                return {
+                    temp: 20,
+                    // cloth: '夹克',
+                }
+            },
+            // 计算属性的属性名和变量的用法是一样的，写法和变量一样，但名称不能和data里的重复
+            // 计算属性是响应式执行的，函数会在所依赖的变量值发生改变时，自动重新执行
+            computed: {
+                cloth(){
+                    if (this.temp <= 10) {
+                        return '棉袄'
+                    } else if (this.temp <= 20) {
+                        return '夹克'
+                    } else {
+                        return '短袖'
+                    }
+                }
+            },
+            methods: {
+                minus (){
+                    this.temp -= 5
+                },
+                add (){
+                    this.temp += 5
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
