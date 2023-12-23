@@ -27,6 +27,7 @@ import { mapState, mapGetters } from "vuex";
     }
 </script>
 
+
 <style lang="less" scoped>
 h2{
     color: #fff;
