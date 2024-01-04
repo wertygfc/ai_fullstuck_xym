@@ -1,0 +1,101 @@
+<template>
+  <div class="home">
+    <header class="home-header">
+      <router-link to="#">
+        <i class="iconfont icon-menu"></i>
+      </router-link>
+
+      <div class="header-search">
+        <span class="app-name">喜仔超市</span>
+        <i>|</i>
+        <router-link to="#" class="search-title">欢迎进店</router-link>
+      </div>
+
+      <router-link to="/login" class="login">登录</router-link>
+
+    </header>
+    
+    <Swiper id="test" :list="state.swiperList"/>
+    <!-- rest -->
+  </div>
+</template>
+
+<script setup>
+import Swiper from '../components/swiper.vue'
+import { onMounted, reactive } from 'vue'
+import { getHome } from '@/api/home.js'
+import { ref } from 'vue';
+
+// ref将基础类型编程响应式的
+// reactive将对象（引用类型）变成响应式的
+// state 是被 reactive修饰过的对象，也就是响应式对象
+const state = reactive({
+    swiperList: []
+})
+// 请求banner数据
+onMounted(async() => {
+    const { data } = await getHome()
+    console.log(data);
+    state.swiperList = data.data.carousels
+})
+
+</script>
+
+<style lang="less" scoped>
+@import '@/common/style/mixin.less';
+
+.home{
+    padding-bottom: 100px;
+    .home-header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        display: flex;  // 去到一行
+        justify-content: space-between;
+        align-items: center;    // 纵轴居中
+        padding: 0 15px;
+        box-sizing: border-box; // 让可用面积自动变小
+        font-size: 15px;
+        z-index: 999;
+        &.active{
+            background-color: @primary;
+            .icon-menu{
+            color: #fff;
+            }
+            .login{
+            color: #fff;
+            }
+        
+        }
+        .icon-menu{
+            color: @primary;
+        }
+        .header-search{
+            .wh(72%,20px);
+            padding: 5px 0;
+            line-height: 20px;
+            color: #232326;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            .app-name{
+                color: @primary;
+                padding: 0 10px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .search-title{
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+        .login{
+            color: @primary;
+            font-size: 16px;
+        }
+    }
+}
+</style>
