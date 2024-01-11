@@ -1,6 +1,9 @@
 <template>
-    分类
-  <NavBar />
+  <div>
+    分类页面
+
+    <NavBar />
+  </div>
 </template>
 
 <script setup>
@@ -8,5 +11,6 @@ import NavBar from '../components/NavBar.vue';
 
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+
 </style>

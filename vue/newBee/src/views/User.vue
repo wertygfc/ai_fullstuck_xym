@@ -1,13 +1,16 @@
 <template>
-    我的
+  <div>
+    我的页面
+
     <NavBar />
-  </template>
-  
-  <script setup>
-  import NavBar from '../components/NavBar.vue';
-  
-  </script>
-  
-  <style scoped>
-  </style>
-  
+  </div>
+</template>
+
+<script setup>
+import NavBar from '../components/NavBar.vue';
+
+</script>
+
+<style lang="less" scoped>
+
+</style>

@@ -1,12 +1,13 @@
-<script setup>
-  import router from './router'
-</script>
-
 <template>
   <div>
     <router-view></router-view>
   </div>
 </template>
 
-<style scoped>
+<script setup>
+
+</script>
+
+<style lang="less" scoped>
+
 </style>

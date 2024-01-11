@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <header class="home-header"  :class="{ 'active': state.headerActive }">
+    <header class="home-header" :class="{'active': state.headerActive}">
       <router-link to="#">
         <i class="iconfont icon-menu"></i>
       </router-link>
@@ -11,22 +11,28 @@
         <router-link to="#" class="search-title">欢迎进店</router-link>
       </div>
 
-      <router-link to="/login" class="login">登录</router-link>
+      <router-link to="/login" class="login" v-if="!state.isLogin">登录</router-link>
+
+      <router-link to="/user" class="login" v-else>
+        <van-icon name="manager-o" />
+      </router-link>
 
     </header>
 
     <Swiper id="test" :list="state.swiperList" />
-    <!-- rest -->
+    
     <div class="category-list">
       <div v-for="item in state.categoryList" :key="item.categoryId" @click="goDetail(item.name)">
         <img :src="item.imgUrl" alt="">
-        <span>{{ item.name }}</span>
+        <span>{{item.name}}</span>
       </div>
     </div>
 
-    <GoodsList :list="state.newGoodsList" title="新品上线" />
-    <GoodsList :list="state.hotGoodsList" title="热门商品" />
-    <GoodsList :list="state.recommendGoodsList" title="最新推荐" />
+    <GoodsList :list="state.newGoodsList" title="新品上线"/>
+
+    <GoodsList :list="state.hotGoodsList" title="热门商品"/>
+
+    <GoodsList :list="state.recommendGoodsList" title="最新推荐"/>
 
     <!-- footBar -->
     <NavBar />
@@ -34,23 +40,15 @@
 </template>
 
 <script setup>
-import Swiper from '../components/swiper.vue'
+import Swiper from '../components/Swiper.vue'
 import { onMounted, reactive, nextTick } from 'vue'
 import { getHome } from '@/api/home.js'
-import { ref } from 'vue';
 import { showToast } from 'vant';
 import GoodsList from '../components/GoodsList.vue';
 import NavBar from '../components/NavBar.vue';
 
-// ref将基础类型编程响应式的
-// reactive将对象（引用类型）变成响应式的
-// state 是被 reactive修饰过的对象，也就是响应式对象
-const state = reactive({
+const state = reactive({ // state是被reactive修饰过的对象，也就是响应式对象
   swiperList: [],
-  newGoodsList: [],
-  hotGoodsList: [],
-  recommendGoodsList: [],
-  headerActive: false,
   categoryList: [
     {
       name: '新蜂超市',
@@ -94,22 +92,36 @@ const state = reactive({
       categoryId: 100010
     }
   ],
+  newGoodsList: [],
+  hotGoodsList: [],
+  recommendGoodsList: [],
+  headerActive: false,
+  isLogin: false
 })
+
 // 请求banner数据
 onMounted(async () => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    state.isLogin = true
+  }
+
   const { data } = await getHome()
-  console.log(data);
-  state.swiperList = data.data.carousels
-  state.newGoodsList = data.data.newGoodses
-  state.hotGoodsList = data.data.hotGoodses
-  state.recommendGoodsList = data.data.recommendGoodses
+  // console.log(data);
+  state.swiperList = data.carousels
+  state.newGoodsList = data.newGoodses
+  state.hotGoodsList = data.hotGoodses
+  state.recommendGoodsList = data.recommendGoodses
 })
+
 const goDetail = (name) => {
   showToast(name);
 }
-// 写在nextTick中的逻辑一定会在页面加载完毕后执行
-nextTick(() => {
-  document.body.addEventListener('scroll', function () {
+
+
+nextTick(() => { // 写在nextTick中的逻辑一定会在页面加载完毕后执行
+  document.body.addEventListener('scroll',  function() {
+    // console.log(this.scrollTop);
     this.scrollTop > 100 ? state.headerActive = true : state.headerActive = false
   })
 })
@@ -123,18 +135,18 @@ nextTick(() => {
   padding-bottom: 100px;
 
   .home-header {
+    z-index: 999;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 50px;
-    display: flex; // 去到一行
+    display: flex;
     justify-content: space-between;
-    align-items: center; // 纵轴居中
+    align-items: center;
     padding: 0 15px;
-    box-sizing: border-box; // 让可用面积自动变小
+    box-sizing: border-box;
     font-size: 15px;
-    z-index: 999;
 
     &.active {
       background-color: @primary;
@@ -146,7 +158,6 @@ nextTick(() => {
       .login {
         color: #fff;
       }
-
     }
 
     .icon-menu {
@@ -154,7 +165,7 @@ nextTick(() => {
     }
 
     .header-search {
-      .wh(72%, 20px);
+      .wh(74%, 20px);
       padding: 5px 0;
       line-height: 20px;
       color: #232326;
@@ -172,7 +183,7 @@ nextTick(() => {
 
       .search-title {
         font-size: 14px;
-        padding: 10px;
+        padding: 0 10px;
       }
     }
 
@@ -181,32 +192,16 @@ nextTick(() => {
       font-size: 16px;
     }
   }
-
-  .category-list {
-    display: grid; // 网格容器
+  .category-list{
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-row-gap: 5px; // 网格行之间的间距
-    // text-align: center;
-    // display: flex;  // 弹性容器默认不换行，都会去到一行
-    // flex-wrap: wrap;    // 文字换行
-    // div{
-    //     // width: 20%;
-    //     display: flex;
-    //     justify-self: center;
-    //     img{
-    //         .wh(36px, 36px);
-    //         display: block;
-    //         margin: 0 auto;
-    //     }
-    // }
-
-    div {
+    grid-row-gap: 5px;
+    div{
       display: flex;
-      flex-direction: column; // 将主轴变为y轴
-      // justify-self: center;    // 控制在主轴上居中
-      align-items: center; // 控制在另一个轴上居中
-
-      img {
+      flex-direction: column;
+      // justify-content: center; 弹性容器主轴方向居中
+      align-items: center;
+      img{
         .wh(36px, 36px);
         margin: 13px auto 8px auto;
       }
