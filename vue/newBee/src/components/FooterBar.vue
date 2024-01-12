@@ -43,10 +43,10 @@ const handleAddCart = async() => {
   
 </style>
 <style>
-.van-button--warning{
+.van-action-bar .van-button--warning{
     background: linear-gradient(to right, #15c4c4, #1baeae);
 }
-.van-button--danger{
+.van-action-bar .van-button--danger{
     background: linear-gradient(to right, #15aaaa, #098888);
 }
 </style>
