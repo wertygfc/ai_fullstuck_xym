@@ -15,7 +15,7 @@ const store = createStore({
     actions:{   // === methods 可以包含任意异步操作  action调用mutations
         async setCartCountAction(context) {
             const {data} =await getCart()
-            console.log(data);
+            // console.log(data);
             context.commit('setCartCount', data.length) 
         }
     },

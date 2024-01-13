@@ -41,11 +41,14 @@ import SimpleHeader from '../components/SimpleHeader.vue';
 import { ref, onMounted, computed } from 'vue';
 import { getCart, modifyCart, deleteCartItem } from '../api/cart';
 import { useStore } from 'vuex';
+import { showFailToast } from 'vant';
+import { useRouter } from 'vue-router';
 
 const result = ref([]);
 const list = ref([]);
 const checkALL = ref(true);
 const store = useStore();
+const router = useRouter();
 
 onMounted(() => init())
 
@@ -69,6 +72,11 @@ const numChange = async(value, detail) => {     // 修改数量
 }
 
 const onSubmit = () => {      // 提交订单
+  if(result.value.length === 0){
+    showFailToast('请选择商品');
+  }else{
+    router.push({path: '/create-order', query: {cartItemIds: JSON.stringify(result.value)}})
+  }
 }
 
 const allCheck = () => {
