@@ -22,3 +22,4 @@
             - 父组件会以自定义事件的方式，定义一个事件，并接受传参，同步状态
                 @uodate-rate="update"
             - 子组件通过 denfineEmits(['update-rate'])来定义    emits数组
+            - emits('update-rate', num)

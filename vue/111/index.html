@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <ul class="list" id="list">
+        <li v-for="item in list">{{item}}</li>
+      </ul>
+    </div>
+    <script>
+      const {createApp, ref, watch} = Vue
+
+      createApp({
+        setup() {
+          const list = ref(['html', 'css', 'js'])
+          return {
+            list
+          }
+        }
+      })
+    </script>
+
+    <script>
+      // compiler 编译器
+      let DOM = { // 虚拟DOM
+        tagName: 'ul',
+        props: {
+          class: 'list',
+          id: 'list'
+        }
+      }
+    </script>
+  </body>
+</html>

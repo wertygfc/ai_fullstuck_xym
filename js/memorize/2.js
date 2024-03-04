@@ -1,4 +1,4 @@
-function add(a, b){
+function sum(a, b){
     if(arguments.length !== 2){
         throw new Error('参数有误')
     }
@@ -27,6 +27,8 @@ function memorize(f){
     }
 }
 
-const memorizedAdd = memorize(add)
-console.log(memorizedAdd(1, 2));
-console.log(memorizedAdd(1, 2));
+const memoizedSum = memorize(sum)
+console.log(memoizedSum(1, 2));    // 第一次计算，输出 3
+console.log(memoizedSum(1, 2));    // 直接从缓存中获取，输出 3
+console.log(memoizedSum(4, 6));     // 新的输入，计算并存入缓存，输出 10
+console.log(memoizedSum(4, 6));     // 直接从缓存中获取，输出 10

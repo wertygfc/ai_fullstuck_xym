@@ -16,10 +16,10 @@
         let btn = document.getElementById('btn')
         btn.addEventListener('click', () => {
             // 发一个http请求
-            let xhr = new XMLHttpRequest()
+            let xhr = new XMLHttpRequest()  // 实例化了一个对象，这个对象拥有主动向HTTP请求的能力
             xhr.open('GET', 'http://192.168.31.26:3000/top/song?type=7', true)      // open()准备请求
             xhr.onreadystatechange = () => {        // 监听后端响应
-                if(xhr.readyState === 4 && xhr.status === 200){      // state 状态码 200代表成功
+                if(xhr.readyState === 4 && xhr.status === 200){      // state 状态码 200代表成功 4代表数据全部到达
                 console.log(JSON.parse(xhr.responseText));
                 const result = JSON.parse(xhr.responseText).data
                 for(let key in result){
