@@ -158,3 +158,64 @@ valueOf()的作用是将包装类对象转换为原始类型，因为通过new�
 
 
 # 13. call,apply,bind的原理
+
+
+# 14. 说说js中的事件模型
+- 什么是事件流
+
+- 分类
+    1. DOM0级别     onclick (无法控制事件在捕获冒泡哪个阶段执行)
+    2. DOM1级别     addeventListen  (可以控制事件在哪个阶段执行)
+    3. IE级别       arrachEvent(无法控制事件在捕获冒泡哪个阶段执行)
+
+
+# 15. 说说typeof和instanceof的区别
+- typeof 
+    除了null之外的所以原始类型都能判断，还能判断function
+    原理：通过二进制判断，如果前面三个值都是0那就是对象，但因为null的二进制都是0，所以被错误判断
+- instanceof
+    能判断引用类型但不能判断原始类型，因为原始类型没有原型，所以不能判断原始类型
+    原理：通过原型链来判断，判断前者的隐式原型是都等于后者的显示原型，如果不等，会继续顺着前者的原型链网上找，直到找到头
+- Object.prototype.toString.call()
+    1. [].toString() // '' (数组上的toString方法)
+    2. Object.prototype.toString.call([])
+    该方法会让变量x调用对象上的的toString，而toString返回值为 '[object Object]'
+- Array.isArray()
+    只能判断一个变量是不是数组
+
+
+# 16. 说说Ajax的原理
+- 是什么
+    Async javaScript and XML ，是一种异步的js和网页交互的技术，可以实现不刷新网页就跟服务器交换数据，更新页面
+- 实现过程
+    1. 创建XHR对象
+    2. 调用实例对象中的open方法与服务器建立连接
+    3. 调用实例对象中的send方法发送请求
+    4. 监听onreadystatechange事件，通过判断readyState的值来获取最终的数据
+    5. 将数据更新到页面
+
+
+# 17. 怎么实现上拉加载下拉刷新的问题
+1. 监听 touchstart touchmove touchend 事件，再记录手指移动的距离，大于临界值时实现刷新操作，其中使用transform : tranlateY 来添加各处的动画
+2. 根据手指滑动的方向和容器顶部或底部到屏幕的距离来确定此时该执行上拉加载更多还是下拉刷新
+
+
+# 18. 防抖节流
+
+
+# 19. 事件代理（事件委托）
+    通常用于多个子容器需要绑定相同的事件时，直接将该事件绑定父容器去，通过事件参数的target来查看是通过哪个子容器冒泡到父容器中
+
+
+# 20. 事件循环
+- 是什么
+    js引擎在执行js的过程中，会区分同步和异步代码，先执行同步再执行异步，异步中同样按照先执行同步再执行异步，以此往复的循环
+    - 异步
+    1. 宏任务 script, setTimeout, setInterval, setImmediate, I/O(input/output), UI-rendering(页面的渲染), postMassage, messageChannel
+    2. 微任务 promise(同步)中的.then(),MutationObeserver(js自带，监听一个docment结构是否变更), nextTicke(node)
+
+    - Event-Loop
+    1. 执行同步代码（这属于宏任务）
+    2. 执行微任务
+    3. 如果有需要，会渲染页面
+    4. 执行宏任务（下一次Event-Loop的开始）

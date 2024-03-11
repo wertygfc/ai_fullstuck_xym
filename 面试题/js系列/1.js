@@ -73,7 +73,7 @@
 // function myNew (...args) {
 //     let obj = {}
 //     obj.__proto__ = args[0].prototype
-//     let res = args[0].apply(obj, args.slice(1))
+//     let res = args[0].apply(obj, args.slice(1))  // 使实例对象具有构造函数的内部属性
 //     return (typeof res === 'Object' && res !== 'null') ? res : obj
 // }
 
@@ -107,4 +107,18 @@
 
 //     }
 //     return back
+// }
+
+
+// // # 16
+// <button onclick="ajax">发送请求</button>
+// function ajax () {
+//     let require = new XMLHttpRequest
+//     require.open('GET', '', true)
+//     require.send()
+//     require.onreadystatechange = () => {
+//         if(xhr.readyState === 4 && xhr.status === 200){      
+//             console.log(xhr.responseText);
+//         }
+//     }
 // }
