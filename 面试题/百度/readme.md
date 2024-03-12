@@ -168,5 +168,39 @@ https://192.168.31.45:8080/user
 - 同源策略的目的是数据安全
 
 ## 解决跨域（开发阶段号调试）
-1. JSONP
+1. JSONP —— 借助script标签上的src属性不收同源策略的影响这一机制，来实现跨域
     1. ajax请求收同源策略的影响,但是<script>上的src属性不受同源策略的影响,且该属性也会导致浏览器发送一个请求
+        1. 借助script标签的src属性给后端发送一个请求,且携带一个参数'callback'
+        2. 前端在window对象上添加了一个callback函数
+        3. 后端接收到这个参数'callback'后，将要返回给前端的数据data和这个参数'callback'进行拼接，成'callback(data)'，并返回
+        4. 因为window上已经有callback函数，后端又返回来一个形如'callback(data)'的字符串，所以浏览器会自动执行这个字符串，即执行callback(data)
+    2. 缺点：
+        1. 必须要后端配合
+        2. 只能用于get请求
+
+2. Cors(Cross-Origin Resource Sharing) —— 通过设置响应头来高数浏览器不要拒绝后端的相应
+    在响应头里设置白名单
+    - 后端代码（用node写的后端代码）
+    const http = require('http');
+    const server = http.createServer((req, res) => {
+    //跨域是浏览器不接受后端的响应
+    //想个办法,让浏览器不得接受
+    res.writeHead(200, {
+    //'Access-Control-Allow-Origin':'*' //白名单
+    'Access-Control-Allow-Origin': 'http://127.0.0.1:5500' //白名单
+    })
+    let data = {
+    msg: "hello cors"
+    res.end(JSON.stringify(data))// 向前端返回数据
+    server. listen(3000, () => {
+    console. log('listening on port 3000');
+
+3. node代理(vite  只在开发阶段生效，因为项目上线后，vite会被剔除掉)
+原理：自己写一个后端，通过自己的后端向该后端请求数据，再将数据返回给前端（自己的后端传数据给前端也需要跨域）
+![alt text](image-1.png)
+
+4. nginx代理(原理类似cors，也是配置白名单)(生产环境下常用)
+
+5. domain(在iframe中，当父级页面和子级页面的子域不同时，通过设置document.domain='xxx'来将xxx定位基础域，从而实现跨域)
+
+6. postMessage(在iframe中，)
