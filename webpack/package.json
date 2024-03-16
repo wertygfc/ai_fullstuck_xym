@@ -1,0 +1,23 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "工程化\r - 把项目跑起来\r     vue 项目包含 .vue文件 .css(stylus)文件 图片....  —————— 静态资源，如何让静态资源打包一下，让它可执行",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.6.0",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "babel-loader": "^9.1.3"
+  },
+  "dependencies": {
+    "vue": "^3.4.21"
+  }
+}
