@@ -6,7 +6,7 @@
       </router-link>
 
       <div class="header-search">
-        <span class="app-name">喜仔超市</span>
+        <span class="app-name">阿米购物</span>
         <i>|</i>
         <router-link to="#" class="search-title">欢迎进店</router-link>
       </div>
