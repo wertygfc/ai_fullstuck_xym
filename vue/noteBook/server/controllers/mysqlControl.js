@@ -42,7 +42,6 @@ const userLogin = (username, password) => {
   return allService.query(_sql)
 }
 
-
 // 查询
 const userFind = (username) => {
   let _sql = `select * from users where username="${username}";`
@@ -55,9 +54,22 @@ const userRegister = (username, password, nickname) => {
   return allService.query(_sql)
 }
 
+// 根据类型type查找日记列表
+const findNoteListByType = (type) => {
+  let _sql = `select * from note where note_type="${type}";`
+  return allService.query(_sql)
+}
+
+// 根id查找日记详情
+const findNoteListById = (id) => {
+  let _sql = `select * from note where id="${id}";`
+  return allService.query(_sql)
+}
 
 module.exports = {
   userLogin,
   userFind,
-  userRegister
+  userRegister,
+  findNoteListByType,
+  findNoteListById
 }
