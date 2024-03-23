@@ -168,6 +168,10 @@ valueOf()的作用是将包装类对象转换为原始类型，因为通过new�
     2. DOM1级别     addeventListen  (可以控制事件在哪个阶段执行)
     3. IE级别       arrachEvent(无法控制事件在捕获冒泡哪个阶段执行)
 
+    element.addEventListener('click', myFunction, true); // 捕获流
+    element.addEventListener('click', myFunction, false); // 冒泡流
+
+
 
 # 15. 说说typeof和instanceof的区别
 - typeof 
@@ -175,7 +179,7 @@ valueOf()的作用是将包装类对象转换为原始类型，因为通过new�
     原理：通过二进制判断，如果前面三个值都是0那就是对象，但因为null的二进制都是0，所以被错误判断
 - instanceof
     能判断引用类型但不能判断原始类型，因为原始类型没有原型，所以不能判断原始类型
-    原理：通过原型链来判断，判断前者的隐式原型是都等于后者的显示原型，如果不等，会继续顺着前者的原型链网上找，直到找到头
+    原理：通过原型链来判断，判断前者的隐式原型是都等于后者的显示原型，如果不等，会继续顺着前者的原型链往上找，直到找到头
 - Object.prototype.toString.call()
     1. [].toString() // '' (数组上的toString方法)
     2. Object.prototype.toString.call([])
@@ -219,3 +223,39 @@ valueOf()的作用是将包装类对象转换为原始类型，因为通过new�
     2. 执行微任务
     3. 如果有需要，会渲染页面
     4. 执行宏任务（下一次Event-Loop的开始）
+
+
+
+# WeakMap、Map、Set 和 WeakSet
+WeakMap、Map、Set 和 WeakSet 是 JavaScript 中的四种集合类型，它们各自有不同的特点和用途。
+
+1. Map（映射）:
+   - Map 对象保存键值对，并且能记住键的原始插入顺序。任何值（对象或者原始值）都可以作为一个键或一个值。
+   - Map 中的键是唯一的，如果重复设置相同的键，则后面的值会覆盖前面的值。
+   - 与普通的对象相比，Map 提供了更好的性能和更直观的 API。
+
+2. Set（集合）:
+   - Set 对象是一组唯一值的集合，其中每个值只能出现一次。
+   - 可以用来去除数组中的重复元素，或者用来检查某个值是否存在于集合中。
+
+3. WeakMap（弱映射）:
+   - WeakMap 对象是一种特殊的 Map 对象，其中的键只能是对象，而值可以是任意值。
+   - 与普通的 Map 不同的是，WeakMap 中的键是弱引用的，这意味着如果一个键不再被引用，它会被垃圾回收机制自动移除，这样有助于防止内存泄漏。
+
+4. WeakSet（弱集合）:
+   - WeakSet 对象是一种特殊的 Set 对象，其中的值只能是对象。
+   - 与普通的 Set 不同的是，WeakSet 中的值是弱引用的，当值不再被引用时，它也会被垃圾回收机制自动移除。
+
+总的来说，Map 和 Set 是常规的集合数据结构，而 WeakMap 和 WeakSet 则是弱引用版本，用于存储对象的引用并在不再需要时自动清理。弱引用的特性使得它们在某些场景下更加适用，例如缓存或监听器管理等。
+
+
+# es6 新语法
+    - class 
+    - promise 
+    - 箭头函数 
+    - 解构 
+    - let/const 
+    - proxy 
+    - es6模块化 
+    - 模版字符串 
+    - async/await

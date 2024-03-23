@@ -48,3 +48,27 @@
 - 双向绑定的理解
     1. vue的数据源会被劫持，在劫持的过程中为属性做依赖收集。vue中的观察者watcher负责更新视图，依赖收集到的是观察者watcher的实例对象，当属性值发生变更时会触发依赖，进而触发视图更新函数
     2. 在数据劫持的同时，vue会编译模版，解析指令，当视图层的数据发生变更时，编译器中绑定的函数会被触发，进而获取到最新的数据值，再次通知watcher去触发依赖
+
+
+# 说说vue2和vue3的区别
+    - 选项式api 和 组合式api
+        - this 不需要了，更好地支持了函数式编程
+        - 选项式api，代码量大的话，data+methods+getters 相关的逻辑被分开了
+        - 组合式api，可以使用函数式编程，让reactive/ref + methods + onMounted 以业务为单位放一起
+
+    - 响应式原理
+        - vue2 defineProperty （一次性代理完） 数组（索引变化）
+        - vue3，使用了Proxy，有13种拦截方法，性能更好（懒代理）
+        - vue2的响应式原理是依赖收集，vue3的响应式原理是发布订阅
+        因为核心就是  拦截 + track(get) + trigger(set) + effect
+
+        - weakMap 理解
+            依赖关系手机是考全局的唯一的weakMap，以响应式对象为key，再试他的一些属性，proxy可以一次性代理，值就是用track手机的函数数组（effects），全部执行
+            - 为什么用weakMap
+            组件有很多，响应式对象有很多，路由组件有很多，当组件下线，路由切换，有些响应式对象就不用维护了，，weakMap会在响应式对象被垃圾回收后自动删除，可以解决内存泄漏的问题
+
+
+    - v-if v-for 的优先级
+        - 选项式api，v-if v-for 的优先级是 v-for > v-if
+        - 组合式api，v-if v-for 的优先级是 v-if > v-for
+        - vue3修正了vue2的bug，v-if=“false”时，没必要渲染
