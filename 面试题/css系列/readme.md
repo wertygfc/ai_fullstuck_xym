@@ -22,6 +22,20 @@
 
 !important > 内联 > id选择器 > 类名选择器 > 标签选择器
 
+  - 常见的伪类包括：
+    :hover - 鼠标悬停状态
+    :active - 激活状态
+    :visited - 已访问链接状态
+    :focus - 获得焦点状态
+    :first-child - 第一个子元素
+    :nth-child() - 指定位置的子元素
+  - 常见的伪元素包括：
+    ::before - 在元素内容之前插入内容
+    ::after - 在元素内容之后插入内容
+    ::first-line - 选择元素的第一行
+    ::first-letter - 选择元素的第一个字母
+
+
 # 3. 说说css中的单位有哪些？
 1. px : 像素单位，屏幕上的发光点
 2. rem : 相对单位，相对于根字体大小
@@ -42,8 +56,8 @@ ppi === 像素的密度
 # 5. css中有哪些方式可以隐藏页面元素？区别是什么？
 1. display: none        脱离文档流   无法响应事件     回流重绘
 2. visibility: hidden   占据文档流   无法响应事件     重绘
-3. opacity: 0           占据文档流   响应事件        重绘 || 不重绘
-4. position: absolute   脱离文档流   无法响应事件     回流重绘
+3. opacity: 0           占据文档流   响应事件        重绘 || 不重绘(当使用animation时，animation会触发GPU的加速模式，便不会产生重绘)
+4. position: absolute(绝对定位，相对于外层具有定位属性的容器；相对定位是相对于自身原本所在的位置进行定位)   脱离文档流   无法响应事件     回流重绘
 5. clip-path: circle(0%) 占据文档流   无法响应事件    重绘
 
 # 6. 谈谈你对BFC的理解
@@ -53,12 +67,12 @@ ppi === 像素的密度
 - 渲染规则
   1. BFC容器在计算高度时，浮动元素的高度也会计算在内
   2. BFC容器内的子元素的margin-top不会和BfC这个父容器发成重叠
-  3. 遵照从上往下从左往右的布局排列
+  3. 遵照从上往下从左往右的布局排列（别的容器布局也这样）
 
 - 触发条件
   1. overflow: 不为visible
   2. float
-  3. display: inline-block || inline-xxx  || flex  || table-xxx || grid
+  3. display: inline-block || inline-flex  ||  inline-grid || inline-table  || flex  || grid || table-xxx
   4. position: absolute || fixed
 
 - 应用
@@ -66,9 +80,9 @@ ppi === 像素的密度
 
 
 # 7. 水平垂直居中的方式有哪些？ !!!!!
-1. position: absolute  + translate || margin负值(已知宽高)
-2. flex
-3. grid
+1. position: absolute  + translate || margin负值（已知宽高）
+2. flex 主轴居中，交叉轴居中(justify-content:center;align-items:center;)
+3. grid 主轴居中，交叉轴居中
 4. table:  text-align  + vertical-align  (子容器不能是块级)
 5. margin(已知宽高)
 
@@ -99,12 +113,12 @@ ppi === 像素的密度
   2. 居中
 
 # 10. css3新增了那些属性？
-1. 选择器： 属性选择器，伪类选择器
+1. 选择器： 属性选择器，伪类选择器(nth-child,first-child,end-child)
 2. box-shadow
 3. 裁剪： background-clip
-4. transition  (过渡)
-5. transform
-6. animation （动画）
+4. transition  (过渡动画)
+5. transform  (平移，旋转，缩放，倾斜)
+6. animation (动画)
 7. 渐变色
 
 # 11. css3中常见的动画有哪些？怎么实现？
@@ -143,7 +157,12 @@ ppi === 像素的密度
 2. perspective + translateZ
 
 # 15. css画一个三角形
-
+- 实心三角
+![alt text](image-1.png)
+- 空心三角
+![alt text](image.png)
 # 16. 如何显示一个小于10px的文字
-1. zoom
-2. transform: scale(xxx);
+（新版本的谷歌可以支持任意像素的文字的，但是不是所有浏览器都有这个功能）
+1. zoom（通过变焦来实现）
+![alt text](image-2.png)
+2. transform: scale(xxx);（缩放多少倍）
