@@ -162,7 +162,7 @@ valueOf()的作用是将包装类对象转换为原始类型，因为通过new�
 
 # 14. 说说js中的事件模型
 - 什么是事件流
-
+    当网页中发生一个事件（比如点击、鼠标移动等），这个事件会从触发的元素开始传播，并经过一系列阶段，最终被处理或者冒泡到文档根节点
 - 分类
     1. DOM0级别     onclick (无法控制事件在捕获冒泡哪个阶段执行)
     2. DOM1级别     addeventListen  (可以控制事件在哪个阶段执行)
@@ -259,3 +259,39 @@ WeakMap、Map、Set 和 WeakSet 是 JavaScript 中的四种集合类型，它们
     - es6模块化 
     - 模版字符串 
     - async/await
+
+
+# 箭头函数的优缺点
+- 优点：
+1. 简洁：箭头函数语法更为简洁明了，可以省略 function 关键字和 return 关键字。
+2. 隐式返回：当箭头函数体内只有一条语句时，这条语句会被隐式地作为返回值。
+3. 没有自己的 this，arguments，super 或 new.target：箭头函数内部没有这些属性，会继承外层作用域中相应的值。
+
+- 缺点：
+1. 没有自己的 this：箭头函数内部的 this 是词法作用域，指向定义时所在的对象，而不是运行时所在的对象。这可能导致在某些情况下出现错误的行为。
+2. 不能作为构造函数使用：箭头函数没有自己的 this 值，无法通过 new 关键字来调用，也不能用作构造函数来创建实例对象。
+3. 不适用于需要 arguments 对象的场景：箭头函数没有自己的 arguments 对象，如果需要获取所有传入参数，就需要通过 rest 参数（...args）来获取。
+4. 可读性较差：虽然箭头函数简洁，但有时候会牺牲一些可读性，特别是在复杂的函数体内，多行代码的情况下。
+
+
+# Promise
+- 是什么
+    Promise 是一种用于处理异步操作的对象，它代表了一个异步操作的最终完成或失败，并且可以在操作完成时获取结果或错误信息。Promise 对象可以避免了传统的回调地狱（Callback Hell），使得异步操作的处理更加清晰和易于维护。
+
+- 状态（States）：
+Promise 对象有三种状态：Pending（进行中）、Fulfilled（已成功）和Rejected（已失败）。
+当创建一个 Promise 实例时，它会处于 Pending 状态，然后根据操作的完成情况，可能变为 Fulfilled 或 Rejected 状态。
+状态转换（State transitions）：
+
+Pending 状态可以转变为 Fulfilled 或 Rejected 状态，但一旦转变，就不能再改变。
+Fulfilled 状态表示操作成功完成，此时会调用 Promise 的 then 方法来处理成功的结果。
+Rejected 状态表示操作失败，此时会调用 Promise 的 catch 方法或者 then 方法的第二个参数来处理失败的结果。
+
+- 身上的方法
+1. Promise.resolve(value): 返回一个已完成状态的 Promise 对象，并将指定的值作为其结果。
+2. Promise.reject(reason): 返回一个已拒绝状态的 Promise 对象，并将指定的原因作为其错误信息。
+3. Promise.then(onFulfilled, onRejected): 当 Promise 对象的状态变为已完成时（fulfilled），将会调onFulfilled 函数；当 Promise 对象的状态变为已拒绝时（rejected），将会调用 onRejected 函数。
+4. Promise.catch(onRejected): 当 Promise 对象的状态变为已拒绝时（rejected），将会调用 onRejected 函数，相当于 .then(null, onRejected) 的简写形式。
+5. Promise.finally(onFinally): 无论 Promise 对象的状态是已完成还是已拒绝，都会执行 onFinally 函数。
+6. Promise.all(iterable): 返回一个 Promise 对象，当所有的 Promise 对象都已完成时，该 Promise 对象才会变为已完成状态，其结果是一个包含所有 Promise 对象结果的数组。如果任何一个 Promise 对象变为已拒绝状态，该 Promise 对象就会变为已拒绝状态，并将第一个被拒绝的 Promise 对象的错误作为结果。
+7. Promise.race(iterable): 返回一个 Promise 对象，当可迭代对象中的任意一个 Promise 对象变为已完成或已拒绝状态时，该 Promise 对象就会变为相同的状态，并采用第一个完成或拒绝的 Promise 对象的结果或错误。
