@@ -1,0 +1,25 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+
+    .logo{
+        width: 60px;
+        height: 60px;
+        background: url('@/assets/logo.webp') no-repeat center center;
+        background-size: cover;
+    }
+    .user-info{
+        color: white;
+        .user-name{
+            margin-right: 20px;
+        }
+        .user-logout{
+            cursor: pointer;
+        }
+        
+    }
+}
+
+.body{
+    height: calc(100vh - 64px);
+}
